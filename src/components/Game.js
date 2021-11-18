@@ -1,11 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+//redux
+import { useDispatch } from "react-redux";
+import {loadDetail} from '../actions/detailAction';
 
 
-const Game = ({name,released,image}) => {
+const Game = ({name,released,image, id}) => {
+    //load details
+    const dispatch = useDispatch()
+    const loadDetailHandler = () => {
+        dispatch(loadDetail(id))
+    }
     return(
-        <StyledGame>
+        <StyledGame onClick={loadDetailHandler}>
             <h3>{name}</h3>
             <p>{released}</p>
             <img src={image} alt={name}/>
@@ -21,7 +29,7 @@ const StyledGame = styled(motion.div)`
     overflow:hidden;
     img{
         width: 100%;
-        height: 40vh;
+        height: 200px;
         object-fit: cover;
     }
 `
