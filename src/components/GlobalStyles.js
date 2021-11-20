@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
             width: 0.5rem;
         }
         &::-webkit-scrollbar-thumb{
-            background-color: blueviolet;
+            background-color: #8c7ae6;
         }
     }
     body{
@@ -36,6 +36,9 @@ const GlobalStyles = createGlobalStyle`
     a{
         text-decoration: none;
         color: #333;
+    }
+    img{
+        display: block;
     }
 `
 
