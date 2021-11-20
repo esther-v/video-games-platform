@@ -1,19 +1,37 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import logo from '../img/logo.svg';
+import { fetchSearch } from  "../actions/gamesAction"
+import { useDispatch } from "react-redux";
+
 
 const Nav = () => {
+    const dispatch = useDispatch()
+    const [textInput, setTextInput] = useState("")
+    const inputHandler = (e) => {
+        setTextInput(e.target.value)
+    }
+    const submitSearch = (e) => {
+        e.preventDefault()
+        dispatch(fetchSearch(textInput))
+        setTextInput("")
+    }
+
+    const clearSearch = () => {
+        dispatch({type: "CLEAR_SEARCH"})
+    }
+
     return(
         <StyledNav>
-            <Logo>
+            <Logo onClick={clearSearch}>
                 <img src={logo} alt="logo" />
                 <h1>Video Games Corner</h1>
             </Logo>
-            <div className="search">
-                <input type="text" />
-                <button>Search</button>
-            </div>
+            <form className="search">
+                <input value={textInput} onChange={inputHandler} type="text" />
+                <button onClick={submitSearch} type="submit">Search</button>
+            </form>
         </StyledNav>
     )
 }
@@ -39,12 +57,21 @@ const StyledNav = styled(motion.nav)`
         cursor: pointer;
         background: #8c7ae6;
         color: white;
+        &:hover{
+            background: #4834d4;
+        }
     }
 `
 
 const Logo = styled(motion.div)`
     display: flex;
     justify-content: center;
+    padding: 1rem;
+    cursor: pointer;
+    img{
+        height: 2rem;
+        width: 2rem;
+    }
 `
 
 export default Nav
